@@ -5,13 +5,13 @@ public class Client {
     static ArrayList<ArrayList<Integer>> test_array_2 = new ArrayList<>();
 
     public static void main(String[] args) {
-        test_array_2.add(new ArrayList<>(Arrays.asList(1, 0, 0, 1, 0, 0, 0, 0, 0, 0)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 1, 0, 0, 0, 1, 0, 0, 0)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(9, 0, 0, 1, 0, 0, 0, 0, 0, 0)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 1, 0, 0, 0, 0, 0, 0, 0)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 1, 2, 0, 0, 0, 0, 0, 0)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(1, 0, 0, 1, 1, 1, 1, 1, 1, 1)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1, 1, 1, 1, 1, 1))); 
 
         ArrayList<String> result = findPath(test_array_2);
         System.out.println(result);
@@ -52,7 +52,7 @@ public class Client {
         visited[i][j] = true;
         path.add("A[" + i + "][" + j + "]");
 
-        if (i == rows - 1 && j == cols - 1) {
+        if (i == 6 && j == 0) {
             return true;
         }
 
