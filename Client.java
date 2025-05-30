@@ -23,7 +23,6 @@ public class Client {
         int rows = grid.size();
         int cols = grid.get(0).size();
 
-        // Find the starting point (first 1)
         int startRow = -1, startCol = -1;
         outer:
         for (int i = 0; i < rows; i++) {
@@ -36,18 +35,16 @@ public class Client {
             }
         }
 
-        if (startRow == -1) return path; // no start
+        if (startRow == -1) return path;
 
-        // Move downward
         int i = startRow;
         while (i < rows && grid.get(i).get(startCol) == 1) {
             path.add("A[" + i + "][" + startCol + "]");
             i++;
         }
 
-        // Move left once downward path ends
         int j = startCol - 1;
-        i--; // step back to the last valid row
+        i--;
         while (j >= 0 && grid.get(i).get(j) == 1) {
             path.add("A[" + i + "][" + j + "]");
             j--;
