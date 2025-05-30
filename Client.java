@@ -5,13 +5,13 @@ public class Client {
     static ArrayList<ArrayList<Integer>> test_array_2 = new ArrayList<>();
 
     public static void main(String[] args) {
-        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
-        test_array_2.add(new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1, 1, 1, 1, 1, 1))); 
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 1, 0, 0, 0, 0, 0)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 1, 0, 0, 0, 0, 0)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1, 0, 0, 0, 0, 0)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 3, 1, 1, 1, 1, 1)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 1, 0, 0, 0, 0, 0)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 1, 0, 0, 0, 0, 0)));
+        test_array_2.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 1, 1, 1, 1, 1, 1)));
 
         ArrayList<String> result = findPath(test_array_2);
         System.out.println(result);
@@ -22,47 +22,38 @@ public class Client {
         ArrayList<String> path = new ArrayList<>();
         int rows = grid.size();
         int cols = grid.get(0).size();
-        boolean[][] visited = new boolean[rows][cols];
-        int[] start = null;
 
+        // Find the starting point (first 1)
+        int startRow = -1, startCol = -1;
         outer:
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if (grid.get(i).get(j) == 1) {
-                    start = new int[]{i, j};
+                    startRow = i;
+                    startCol = j;
                     break outer;
                 }
             }
         }
 
-        if (start != null) {
-            dfs(grid, visited, path, start[0], start[1]);
+        if (startRow == -1) return path; // no start
+
+        // Move downward
+        int i = startRow;
+        while (i < rows && grid.get(i).get(startCol) == 1) {
+            path.add("A[" + i + "][" + startCol + "]");
+            i++;
         }
+
+        // Move left once downward path ends
+        int j = startCol - 1;
+        i--; // step back to the last valid row
+        while (j >= 0 && grid.get(i).get(j) == 1) {
+            path.add("A[" + i + "][" + j + "]");
+            j--;
+        }
+
         return path;
-    }
-
-    public static boolean dfs(ArrayList<ArrayList<Integer>> grid, boolean[][] visited, ArrayList<String> path, int i, int j) {
-        int rows = grid.size();
-        int cols = grid.get(0).size();
-
-        if (i < 0 || j < 0 || i >= rows || j >= cols || grid.get(i).get(j) != 1 || visited[i][j]) {
-            return false;
-        }
-
-        visited[i][j] = true;
-        path.add("A[" + i + "][" + j + "]");
-
-        if (i == 6 && j == 0) {
-            return true;
-        }
-
-        if (dfs(grid, visited, path, i + 1, j)) return true;
-        if (dfs(grid, visited, path, i, j + 1)) return true;
-        if (dfs(grid, visited, path, i - 1, j)) return true;
-        if (dfs(grid, visited, path, i, j - 1)) return true;
-
-        path.remove(path.size() - 1);
-        return false;
     }
 
     public static void printPath(ArrayList<ArrayList<Integer>> grid, ArrayList<String> path) {
